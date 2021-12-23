@@ -1,4 +1,6 @@
+import 'package:e_commerce_app/screens/basketPage/view/basketPage.dart';
 import 'package:e_commerce_app/screens/homePage/homepage.dart';
+import 'package:e_commerce_app/screens/productDetailPage/view/productDetail.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
       
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: ProductDetailPage(),
     );
   }
 }
