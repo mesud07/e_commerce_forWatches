@@ -12,7 +12,7 @@ class ProviderViewModel extends ChangeNotifier{
     notifyListeners();
   }
 List<Product> get getSepet {
-    return [..._sepet];
+    return _sepet;
   }
 
 

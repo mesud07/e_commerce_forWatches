@@ -6,6 +6,7 @@ import 'package:e_commerce_app/screens/productDetailPage/model/colorModel.dart';
 import 'package:e_commerce_app/screens/productDetailPage/model/productModel.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailPage extends StatefulWidget {
   @override
@@ -59,7 +60,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: header(context, "productDetail"),
-      body: Container(
+      body: Consumer<ProviderViewModel>(builder: (context,item,child){
+        return Container(
         color: Colors.pinkAccent.withOpacity(0.05),
         child: Column(
           children: [
@@ -111,10 +113,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ),
             InkWell(
               onTap: () {
-                _controller
-                    .addProduct(Product(link, watchTitle, cost.toDouble(), 2));
-                    _controller.arttir();
-                print(_controller.getSepet.length);
+                item.addProduct(Product(link, watchTitle, cost.toDouble(), 2));
+                   
+                print(item.getSepet.length);
               },
               child: Container(
                   //color: Colors.red,
@@ -132,7 +133,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             )
           ],
         ),
-      ),
+      );
+      })
     );
   }
 

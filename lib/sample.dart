@@ -57,6 +57,7 @@ class _SamplePageState extends State<SamplePage> {
                     onTap: (){
                       item.arttir();
                       print(item.getSepet.length);
+                      print("sample sayfası"+item.counter.toString());
                     },
                     child: Container(
                       alignment: Alignment.center,

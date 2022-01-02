@@ -13,7 +13,7 @@ void main() {
     /// can use [MyApp] while mocking the providers
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ProviderViewModel()),
+        ChangeNotifierProvider.value(value:ProviderViewModel()),
       ],
       child: MyApp(),
     ),

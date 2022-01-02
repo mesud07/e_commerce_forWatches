@@ -21,16 +21,20 @@ class _BasketPageState extends State<BasketPage> {
         appBar: header(context, "basket"),
         body: Consumer<ProviderViewModel>(builder: (context, item, child) {
           print(item.getSepet.length);
-          print("Counter"+item.counter.toString());
+        
           return Container(
             child: Column(
               children: [
-               
+               ElevatedButton(onPressed: (){
+                 item.addProduct(Product("123123","asdada",10.0,2));
+                 print(item.getSepet);
+               }, child: Text("ekle")),
+            
                 Container(
                   //  color: Colors.green,
                   height: MediaQuery.of(context).size.height * 3 / 4,
                   child: ListView.builder(
-                      itemCount: item.counter,
+                      itemCount: item.getSepet.length,
                       itemBuilder: (context, index) {
                         return Text(index.toString());
                       }),
