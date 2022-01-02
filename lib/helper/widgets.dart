@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/screens/productDetailPage/view/productDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -65,31 +66,36 @@ class ProductContainer extends StatelessWidget {
   ProductContainer(this.watchTitle,this.link,this.watchPrice);
   @override
   Widget build(BuildContext context) {
-    return Container(
-                          margin: EdgeInsets.all(10),
-                          padding: EdgeInsets.only(top:5),
-                          decoration: BoxDecoration(color: anaContainerColor,borderRadius: BorderRadius.circular(10)),
-                          height: MediaQuery.of(context).size.height/4,
-                          width: MediaQuery.of(context).size.width*2/5,
-                          child: Column(
-                            children: [ 
-                              Container(
-                                height: MediaQuery.of(context).size.height/6,
-                                width: MediaQuery.of(context).size.width*2/5,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(link))),
-                              ),
-        
-                              Container(child: Center(child: Text(watchTitle,style: GoogleFonts.poppins(fontSize: 20),)),),
-        
-                              Container(child: Center(child: Text(watchPrice.toString()+" \$",style: GoogleFonts.poppins(color: Colors.brown,fontSize: 18),)),),
-        
-        
-        
-                            ],
+    return InkWell(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductDetailPage()));
+      },
+      child: Container(
+                            margin: EdgeInsets.all(10),
+                            padding: EdgeInsets.only(top:5),
+                            decoration: BoxDecoration(color: anaContainerColor,borderRadius: BorderRadius.circular(10)),
+                            height: MediaQuery.of(context).size.height/4,
+                            width: MediaQuery.of(context).size.width*2/5,
+                            child: Column(
+                              children: [ 
+                                Container(
+                                  height: MediaQuery.of(context).size.height/6,
+                                  width: MediaQuery.of(context).size.width*2/5,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage(link))),
+                                ),
+          
+                                Container(child: Center(child: Text(watchTitle,style: GoogleFonts.poppins(fontSize: 20),)),),
+          
+                                Container(child: Center(child: Text(watchPrice.toString()+" \$",style: GoogleFonts.poppins(color: Colors.brown,fontSize: 18),)),),
+          
+          
+          
+                              ],
+                            ),
                           ),
-                        );
+    );
   }
 }
 

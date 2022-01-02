@@ -1,10 +1,24 @@
+import 'package:e_commerce_app/controller.dart';
+import 'package:e_commerce_app/sample.dart';
 import 'package:e_commerce_app/screens/basketPage/view/basketPage.dart';
 import 'package:e_commerce_app/screens/homePage/homepage.dart';
 import 'package:e_commerce_app/screens/productDetailPage/view/productDetail.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    /// Providers are above [MyApp] instead of inside it, so that tests
+    /// can use [MyApp] while mocking the providers
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProviderViewModel()),
+      ],
+      child: MyApp(),
+    ),
+  );
+  
 }
 
 class MyApp extends StatelessWidget {
@@ -19,7 +33,7 @@ class MyApp extends StatelessWidget {
       
         primarySwatch: Colors.blue,
       ),
-      home: ProductDetailPage(),
+      home: HomePage(),
     );
   }
 }
