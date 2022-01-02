@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/controller.dart';
 import 'package:e_commerce_app/helper/appbar.dart';
 import 'package:e_commerce_app/helper/style.dart';
+import 'package:e_commerce_app/screens/basketPage/model/basketProduct.dart';
 import 'package:e_commerce_app/screens/basketPage/model/product.dart';
 import 'package:e_commerce_app/screens/productDetailPage/model/colorModel.dart';
 import 'package:e_commerce_app/screens/productDetailPage/model/productModel.dart';
@@ -9,16 +10,20 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailPage extends StatefulWidget {
+  Product productItem;
+  ProductDetailPage(this.productItem);
   @override
   _ProductDetailPageState createState() => _ProductDetailPageState();
 }
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
+  int _counter=1;
+
   late ProviderViewModel _controller;
-  String watchTitle = "Classic Roselyn Mawes";
-  String watchDesc =
-      "With classic feature wuch the slim vause, details in rase gold or silver , and our heritage strap ruby red classic";
-  int cost = 199;
+  late String _watchLink;
+  late String _watchTitle;
+  late String _watchDesc;
+  late double _watchCost;
   static const Map<String, int> varyasyonlar = {
     "42mm": 42,
     "43mm": 43,
@@ -35,14 +40,18 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   ProductModel secilenDeger = ProductModel("42mm", 42);
   ColorModel secilenRenk = ColorModel("Kırmızı", Colors.red);
-  String link =
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Arcadia_watch_c_1950.png/946px-Arcadia_watch_c_1950.png";
+  
 
   List<DropdownMenuItem<ProductModel>> varyasyonListDropDown = [];
   List<DropdownMenuItem<ColorModel>> colorListDropDown = [];
 
   void initState() {
     super.initState();
+    _watchLink=widget.productItem.link;
+    _watchTitle= widget.productItem.productTitle;
+    _watchDesc=widget.productItem.productDesc;
+    _watchCost=widget.productItem.productCost;
+
     List<ProductModel> varyasyonList = varyasyonlar.entries
         .map((entry) => ProductModel(entry.key, entry.value))
         .toList();
@@ -60,15 +69,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: header(context, "productDetail"),
-      body: Consumer<ProviderViewModel>(builder: (context,item,child){
-        return Container(
+      body: Container(
         color: Colors.pinkAccent.withOpacity(0.05),
         child: Column(
           children: [
             DetailPageImage(
               height: MediaQuery.of(context).size.height * 5 / 12,
               width: double.infinity,
-              link: link,
+              link: _watchLink,
               backgroundColor: Colors.transparent,
             ),
             Container(
@@ -84,8 +92,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
+                        alignment: Alignment.center,
                           margin: EdgeInsets.all(20),
-                          child: MyText(watchTitle, 25, Colors.black)),
+                          child: MyTitleText(_watchTitle,20,Colors.black)),
                       Container(
                         decoration: BoxDecoration(
                             color: Colors.grey.withOpacity(0.1),
@@ -100,11 +109,55 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ),
                   Container(
                       margin: EdgeInsets.all(10),
-                      child: MyText(watchDesc, 17, Colors.black)),
+                      child: MyText(_watchDesc, 17, Colors.black)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    
                     children: [
                       sizeDropDown(),
+                     
+                      Container(
+      width: MediaQuery.of(context).size.width * 1 / 5,
+
+      // color: Colors.grey,
+
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          InkWell(
+            onTap: () {
+               setState(() {
+                _counter--;
+              });
+            },
+            child: Container(
+              height: 25,
+              width: 25,
+              //decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),border: Border.all(width: 2)),
+              child: Icon(Icons.remove),
+            ),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          MyText(_counter.toString(), 20, Colors.black),
+          SizedBox(
+            width: 10,
+          ),
+          InkWell(
+            onTap: () {
+              setState(() {
+                _counter++;
+              });
+            },
+            child: Container(
+              //decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),border: Border.all(width: 2)),
+              child: MyText("+", 30, Colors.black),
+            ),
+          ),
+        ],
+      ),
+    ),
                       colorsDropDown(),
                     ],
                   )
@@ -113,9 +166,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ),
             InkWell(
               onTap: () {
-                item.addProduct(Product(link, watchTitle, cost.toDouble(), 2));
-                   
-                print(item.getSepet.length);
+                
+                context.read<ProviderViewModel>().addProduct(BasketProduct(widget.productItem,secilenDeger,secilenRenk,_counter));
+                
+                
               },
               child: Container(
                   //color: Colors.red,
@@ -126,15 +180,15 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         MyText("Add to Cart- ", 20, Colors.black),
-                        MyText("\$" + cost.toString(), 22, Colors.brown)
+                        MyText("\$" + _watchCost.toString(), 22, Colors.brown),
+                        
                       ],
                     ),
                   )),
             )
           ],
         ),
-      );
-      })
+      ),
     );
   }
 

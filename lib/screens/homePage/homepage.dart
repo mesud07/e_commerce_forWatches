@@ -1,6 +1,7 @@
 
 import 'package:e_commerce_app/helper/appbar.dart';
 import 'package:e_commerce_app/helper/widgets.dart';
+import 'package:e_commerce_app/screens/basketPage/model/product.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 class HomePage extends StatefulWidget {
@@ -11,12 +12,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String link = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Arcadia_watch_c_1950.png/946px-Arcadia_watch_c_1950.png";
-  String watchTitle ="Arcadia";
-  int watchPrice = 455;
+  
   List kayanListButtons = ["Rating","Trending","Popular","Select For You"];
  
- 
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,26 +46,16 @@ class _HomePageState extends State<HomePage> {
 
                 
                 Container(
+
                   //Eğer yükseklik vermezsen sayfa tamamen aşağı doğru kayar fakat verirsen
                   //sadece o container içinde kayar
                   height: MediaQuery.of(context).size.height*2/3,
                   width: double.infinity,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    //physics: NeverScrollableScrollPhysics(),
-                    itemCount: 5,
-                    itemBuilder: (context,index){
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        
-                  ProductContainer(watchTitle,link,watchPrice),
-                  ProductContainer(watchTitle,link,watchPrice),
-
-                        
-                      ],
-                    );
-                  }),
+                  child: GridView.count(crossAxisCount: 2,
+                  shrinkWrap: true,
+                  children: List.generate(products.length, (index) => ProductContainer(products[index])),
+            
+             )
                 )
         
             ],),

@@ -1,33 +1,61 @@
+import 'package:e_commerce_app/screens/basketPage/model/basketProduct.dart';
 import 'package:e_commerce_app/screens/basketPage/model/product.dart';
+import 'package:e_commerce_app/screens/basketPage/view/basketPage.dart';
 import 'package:flutter/cupertino.dart';
 
 class ProviderViewModel extends ChangeNotifier{
 
   
-
-  List<Product> _sepet =[];
   
-  void addProduct(Product product) {
+
+  
+  List<BasketProduct> _sepet =[];
+  
+  void addProduct(BasketProduct product) {
     _sepet.add(product);
     notifyListeners();
   }
-List<Product> get getSepet {
+List<BasketProduct> get getSepet {
     return _sepet;
   }
 
-
-  int _counter = 0;
-  int get counter=> _counter;
-
-  void arttir()
-  {
-    _counter++;
+  void urunAzalt(BasketProduct basketProduct){
+    for(var i=0;i<_sepet.length;i++){
+      if(_sepet[i]==basketProduct){
+        if(_sepet[i].count==1){
+          _sepet.remove(basketProduct);
+        }
+        else{
+          _sepet[i].count--;
+        }
+      }
+    }
     notifyListeners();
   }
 
-  void azalt()
-  {
-    _counter--;
+   void urunArttir(BasketProduct basketProduct){
+    for(var i=0;i<_sepet.length;i++){
+      if(_sepet[i]==basketProduct){
+        _sepet[i].count++;
+      }
+    }
     notifyListeners();
   }
+
+  double sepetHesapla(List<BasketProduct> sepetList){
+    double _totalTutar=0;
+      for (var item in sepetList) {
+        double satirBasiDeger=item.count*item.product.productCost;
+        _totalTutar+=satirBasiDeger;
+        
+      }
+
+        
+
+      return _totalTutar;
+     
+  }
+
+
+  
 }
