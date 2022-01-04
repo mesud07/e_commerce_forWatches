@@ -31,7 +31,11 @@ class _KayanButtonState extends State<KayanButton> {
                         ),
                         margin: EdgeInsets.all(10),
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+
+                            filtrele(products);
+
+                          },
                           child: Container(
                             
                               padding: EdgeInsets.only(left: 10, right: 10),
@@ -51,6 +55,12 @@ class _KayanButtonState extends State<KayanButton> {
 
 
                       );
+  }
+   void filtrele(List list){
+    List ratingler=[];
+    for (var item in list) {
+      
+    }
   }
 }
 
@@ -96,5 +106,6 @@ class ProductContainer extends StatelessWidget {
                           ),
     );
   }
+ 
 }
 

@@ -26,36 +26,43 @@ PreferredSizeWidget header (BuildContext context,String name){
     actions: [
        
      name!="basket"? Padding(
-      padding: EdgeInsets.only(right: 20.0),
+      padding: EdgeInsets.only(right: 10.0),
       child: GestureDetector(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context)=>BasketPage()));
         },
-        child: Container(
-         
-          alignment: Alignment.center,
-         
-          child: Stack(
-            children:[
-              Container(
-                width: 40,
-                child: Icon(
-                  Icons.shopping_basket,
-            ),
-              ),
-           
-              Container(
-                
-               width: 15,
-               height: 15,
-               alignment: Alignment.center,
-               decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),color: Colors.red),
-               child: MyTitleText(context.watch<ProviderViewModel>().getSepet.length.toString(),10,Colors.white),
-              
-                   ),
-           
-            ]
+        child: Row(
+          children: [
+            IconButton(icon: Icon(Icons.search,size: 30,),onPressed: (){
+              context.read<ProviderViewModel>().acKapa();
+            },),
+            Container(
+             
+              alignment: Alignment.center,
+             
+              child: Stack(
+                children:[
+                  Container(
+                    width: 40,
+                    child: Icon(
+                      Icons.shopping_basket,
+                ),
+                  ),
+               
+                  Container(
+                    
+                   width: 15,
+                   height: 15,
+                   alignment: Alignment.center,
+                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),color: Colors.red),
+                   child: MyTitleText(context.watch<ProviderViewModel>().getSepet.length.toString(),10,Colors.white),
+                  
+                       ),
+               
+                ]
       ),
+            ),
+          ],
         )
     )):Container(),
     ],

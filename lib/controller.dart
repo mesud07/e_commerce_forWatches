@@ -5,7 +5,18 @@ import 'package:flutter/cupertino.dart';
 
 class ProviderViewModel extends ChangeNotifier{
 
+  bool _searchOn=false;
+  bool get searchOnGet =>_searchOn;
   
+  void acKapa(){
+    if(_searchOn!=true){
+      _searchOn=true;
+    }
+    else{
+      _searchOn=false;
+    }
+    notifyListeners();
+  }
   
 
   
